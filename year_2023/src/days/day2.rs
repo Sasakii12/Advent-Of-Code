@@ -1,7 +1,12 @@
 
 use std::collections::HashMap;
 
+use crate::utils::input::read_lines;
+
 fn part1(line: &String) -> u32 {
+    if line == "" {
+        return 0
+    }
     let split_line = line.split(":").collect::<Vec<&str>>();
     let game_id = split_line[0].split(" ").collect::<Vec<&str>>();
 
@@ -35,6 +40,17 @@ pub fn solve() {
     "Game 4: 1 green, 3 red, 6 blue; 3 green, 6 red; 3 green, 15 blue, 14 red",
     "Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green",
     ];
-    println!("Temp");
+    let mut s = 0;
     println!("{}", part1(&test_case1[0].to_string()));
+    for i in test_case1 {
+        s += part1(&i.to_string());
+    }
+    println!("{}", s);
+    let mut x = 0;
+    if let Ok(lines) = read_lines(2) {
+        for line in lines.map_while(Result::ok) {
+            x += part1(&line);
+        }
+    }
+    println!("{}", x);
 }
